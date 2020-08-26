@@ -16,7 +16,7 @@
 ### Association
 
 - has_many :items
-- has_one :customer
+- has_many :customer
 
 ## items テーブル
 
@@ -56,7 +56,7 @@
 
 | Column       | Type       | Options                        |
 | ------------ | ---------- | ------------------------------ |
-| postal_code  | integer    | null: false                    |
+| postal_code  | string     | null: false                    |
 | prefecture   | integer    | null: false                    |
 | city         | string     | null: false                    |
 | number       | string     | null: false                    |
