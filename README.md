@@ -2,14 +2,16 @@
 
 ## users テーブル
 
-| Column           | Type   | Options     |
-| ---------------- | ------ | ----------- |
-| familiy_name     | string | null: false |
-| first_name       | string | null: false |
-| familiy_name_k   | string | null: false |
-| first_name_k     | string | null: false |
-| email            | string | null: false |
-| password         | string | null: false |
+| Column           | Type    | Options     |
+| ---------------- | ------- | ----------- |
+| nickname         | string  | null: false |
+| familiy_name     | string  | null: false |
+| first_name       | string  | null: false |
+| familiy_name_k   | string  | null: false |
+| first_name_k     | string  | null: false |
+| email            | string  | null: false |
+| password         | string  | null: false |
+| birth            | date    | null: false |
 
 ### Association
 
@@ -23,8 +25,13 @@
 | name           | string     | null: false                    |
 | image          | string     | null: false                    |
 | content        | text       | null: false                    |
-| price          | integar    | null: false                    |
-| user           | integar    | null: false, foreign_key: true |
+| price          | integer    | null: false                    |
+| category       | integer    | null: false                    |
+| status         | integer    | null: false                    |
+| delivery_price | integer    | null: false                    |
+| region         | integer    | null: false                    |
+| day            | integer    | null: false                    |
+| user_id        | integer    | null: false, foreign_key: true |
 
 ### Association
 
@@ -35,8 +42,8 @@
 
 | Column  | Type    | Options                        |
 | ------- | ------- | ------------------------------ |
-| user    | integar | null: false, foreign_key: true |
-| item    | integar | null: false, foreign_key: true |
+| user_id | integer | null: false, foreign_key: true |
+| item_id | integer | null: false, foreign_key: true |
 
 
 ### Association
@@ -49,10 +56,13 @@
 
 | Column       | Type       | Options                        |
 | ------------ | ---------- | ------------------------------ |
+| postal_code  | integer    | null: false                    |
+| prefecture   | integer    | null: false                    |
 | city         | string     | null: false                    |
 | number       | string     | null: false                    |
+| building_name| string     |                                |
 | phone_number | string     | null: false                    |
-| customer     | integar    | null: false, foreign_key: true |
+| customer_id  | integer    | null: false, foreign_key: true |
 
 ### Association
 
