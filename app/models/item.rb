@@ -8,7 +8,7 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
-  validates :name, :image, :content, :price, :category, :day, :delivery_price, :region, :status, presence: true
+  validates :name, :content, :price, :category, :day, :delivery_price, :region, :status, presence: true
 
   validates :category_id, :day_id, :delivery_price_id, :region_id, :status_id, numericality: { other_than: 1}
 end
