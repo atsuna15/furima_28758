@@ -10,7 +10,7 @@ class Item < ApplicationRecord
 
   validates :name, :content, :image, :category, :day, :delivery_price, :region, :status, presence: true
 
-  validates :category_id, :day_id, :delivery_price_id, :region_id, :status_id, numericality: { other_than: 1}
+  validates :category_id, :day_id, :delivery_price_id, :region_id, :status_id, numericality: { other_than: 1, message:"Select"}
 
   validates :price, presence: true, numericality: { with: /^[0-9]+$/, message: 'Half-width number'}, inclusion: { in: 300..9999999, message:'Out of setting range'}
 end
