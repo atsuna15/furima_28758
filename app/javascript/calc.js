@@ -10,4 +10,4 @@ function price(){
          profit.textContent = gains;
    });
   }
-  window.addEventListener('load', price);
+  setInterval(price, 1000);
