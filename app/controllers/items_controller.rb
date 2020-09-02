@@ -23,7 +23,6 @@ class ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
-    @user = @item
   end
 
   def destroy
