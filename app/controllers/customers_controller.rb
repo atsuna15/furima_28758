@@ -12,6 +12,9 @@ class CustomersController < ApplicationController
 
   def move_to_index
     item = Item.find(params[:id])
+    if item.customer_id.present?
+      redirect_to root_path
+    end
     if current_user == item.user
       redirect_to root_path
     end
