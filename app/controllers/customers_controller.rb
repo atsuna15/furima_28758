@@ -10,6 +10,19 @@ class CustomersController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def new
+    @customer = Customer.new
+  end
+
+  def create
+    @customer = Customer.create(customer_params)
+  end
+
+  private
+
+  def customer_params
+    params.require(:customer)
+
   def move_to_index
     item = Item.find(params[:id])
     if item.customer_id.present?
