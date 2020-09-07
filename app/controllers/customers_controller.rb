@@ -21,7 +21,8 @@ class CustomersController < ApplicationController
   private
 
   def customer_params
-    params.require(:customer)
+    params.require(:customer_address).permit(:postal_code,:region_id, :city,:number, :building_name, :phone_number)
+  end
 
   def move_to_index
     item = Item.find(params[:id])
