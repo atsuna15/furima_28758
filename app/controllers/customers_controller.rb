@@ -30,7 +30,7 @@ class CustomersController < ApplicationController
   private
 
   def customer_params
-    params.require(:customer_address).permit(:postal_code,:region_id, :city,:number, :building_name, :phone_number, :token)
+    params.require(:customer_address).permit(:postal_code,:region_id, :city,:number, :building_name, :phone_number, :token, :item_id).merge(user_id: current_user.id)
   end
 
   def pay_item
