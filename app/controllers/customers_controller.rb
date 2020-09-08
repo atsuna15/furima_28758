@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :move_to_index
+  # before_action :move_to_index
 
   def done
     @item_customer = Item.find(params[:id])
@@ -8,20 +8,22 @@ class CustomersController < ApplicationController
 
   def index
     @item = Item.find(params[:id])
+    @customer_address = CustomerAddress.new
   end
 
   def new
-    @customer = Customer.new
+    @customer_address = CustomerAddress.new
   end
 
   def create
-    @customer = Customer.new(customer_params[:postal_code,:region_id, :city,:number, :building_name, :phone_number])
-    if @customer.valid?
+    @item = Item.find(params[:id])
+    @customer_address = CustomerAddress.new(customer_params)
+    if @customer_address.valid?
       pay_item
       @customer.save
       return redirect_to root_path
     else
-      render 'index'
+      render "index"
     end
   end
 
@@ -41,16 +43,16 @@ class CustomersController < ApplicationController
     )
   end
 
-  def move_to_index
-    item = Item.find(params[:id])
-    if item.customer_id.present?
-      redirect_to root_path
-    end
-    if current_user == item.user
-      redirect_to root_path
-    end
-    unless user_signed_in?
-      redirect_to root_path
-    end
-  end
+  # def move_to_index
+  #   @item = Item.find(params[:id])
+  #   if @item.customer_id.present?
+  #     redirect_to root_path
+  #   end
+  #   if current_user == @item.user
+  #     redirect_to root_path
+  #   end
+  #   unless user_signed_in?
+  #     redirect_to root_path
+  #   end
+  # end
 end

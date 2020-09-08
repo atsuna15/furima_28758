@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :customers, only: [:index, :new, :create] do
     member do 
       get '/', to: 'customers#index'
+      post '/', to: 'customers#create'
     end
   end
 end
