@@ -19,6 +19,7 @@ class CustomersController < ApplicationController
     @item = Item.find(params[:id])
     @customer_address = CustomerAddress.new(customer_params)
     if @customer_address.valid?
+     
       pay_item
       @customer.save
       return redirect_to root_path
