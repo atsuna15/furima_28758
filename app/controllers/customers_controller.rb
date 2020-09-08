@@ -15,13 +15,30 @@ class CustomersController < ApplicationController
   end
 
   def create
-    @customer = Customer.create(customer_params)
+    @customer = Customer.new(customer_params[:postal_code,:region_id, :city,:number, :building_name, :phone_number])
+    if @customer.valid?
+      pay_item
+      @customer.save
+      return redirect_to root_path
+    else
+      render 'index'
+    end
   end
 
   private
 
   def customer_params
-    params.require(:customer_address).permit(:postal_code,:region_id, :city,:number, :building_name, :phone_number)
+    params.require(:customer_address).permit(:postal_code,:region_id, :city,:number, :building_name, :phone_number, :token)
+  end
+
+  def pay_item
+    @item = Item.find(params[:id])
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: order_params[:token],
+      currency: 'jpy'
+    )
   end
 
   def move_to_index
