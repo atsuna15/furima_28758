@@ -19,7 +19,6 @@ class CustomersController < ApplicationController
     @item = Item.find(params[:item_id])
     @customer_address = CustomerAddress.new(customer_params)
     if @customer_address.valid?
-      binding.pry
       pay_item
       @customer_address.save
       return redirect_to root_path
@@ -31,7 +30,7 @@ class CustomersController < ApplicationController
   private
 
   def customer_params
-    params.require(:customer_address).permit(:postal_code,:region_id, :city,:number, :building_name, :phone_number, :token).merge(user_id: current_user.id, item_id: params[:item_id])
+    params.permit(:postal_code, :region_id, :city, :number, :building_name, :phone_number, :token).merge(user_id: current_user.id, item_id: params[:item_id])
   end
 
   def pay_item
