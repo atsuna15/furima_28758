@@ -1,10 +1,6 @@
 class CustomersController < ApplicationController
   # before_action :move_to_index
 
-  def done
-    @item_customer = Item.find(params[:id])
-    @item_customer.update(customer_id: current_user.id)
-  end
 
   def index
     @item = Item.find(params[:item_id])
