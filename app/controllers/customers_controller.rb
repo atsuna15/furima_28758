@@ -7,7 +7,7 @@ class CustomersController < ApplicationController
   end
 
   def index
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:item_id])
     @customer_address = CustomerAddress.new
   end
 
@@ -16,11 +16,12 @@ class CustomersController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:item_id])
     @customer_address = CustomerAddress.new(customer_params)
     if @customer_address.valid?
+      binding.pry
       pay_item
-      @customer.save
+      @customer_address.save
       return redirect_to root_path
     else
       render "index"
@@ -30,15 +31,15 @@ class CustomersController < ApplicationController
   private
 
   def customer_params
-    params.permit(:postal_code,:region_id, :city,:number, :building_name, :phone_number, :token, :item_id).merge(user_id: current_user.id)
+    params.require(:customer_address).permit(:postal_code,:region_id, :city,:number, :building_name, :phone_number, :token).merge(user_id: current_user.id, item_id: params[:item_id])
   end
 
   def pay_item
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:item_id])
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: @item.price,
-      card: order_params[:token],
+      card: customer_params[:token],
       currency: 'jpy'
     )
   end
