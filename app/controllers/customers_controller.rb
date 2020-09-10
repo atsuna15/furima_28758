@@ -14,9 +14,9 @@ class CustomersController < ApplicationController
     if @customer_address.valid?
       pay_item
       @customer_address.save
-      return redirect_to root_path
+      redirect_to root_path
     else
-      render "index"
+      render 'index'
     end
   end
 
@@ -27,7 +27,7 @@ class CustomersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: customer_params[:token],
@@ -41,9 +41,7 @@ class CustomersController < ApplicationController
     elsif current_user == @item.user
       redirect_to root_path
     end
-    unless user_signed_in?
-      redirect_to  "/users/sign_in" 
-    end
+    redirect_to '/users/sign_in' unless user_signed_in?
   end
 
   def set_customer

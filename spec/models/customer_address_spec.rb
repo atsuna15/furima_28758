@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe CustomerAddress, type: :model do
-  describe '住所情報の保存' do 
-    before do 
+  describe '住所情報の保存' do
+    before do
       @customer_address = FactoryBot.build(:customer_address)
     end
 
@@ -20,12 +20,12 @@ RSpec.describe CustomerAddress, type: :model do
       it '郵便番号が空のとき' do
         @customer_address.postal_code = nil
         @customer_address.valid?
-        expect(@customer_address.errors.full_messages).to include("Postal code can't be blank" , "Postal code Input correctly")
+        expect(@customer_address.errors.full_messages).to include("Postal code can't be blank", 'Postal code Input correctly')
       end
       it '都道府県が選択されていないとき' do
         @customer_address.region_id = 1
         @customer_address.valid?
-        expect(@customer_address.errors.full_messages).to include("Region Select")
+        expect(@customer_address.errors.full_messages).to include('Region Select')
       end
       it '市町村が空のとき' do
         @customer_address.city = nil
@@ -40,7 +40,7 @@ RSpec.describe CustomerAddress, type: :model do
       it '電話番号が空のとき' do
         @customer_address.phone_number = nil
         @customer_address.valid?
-        expect(@customer_address.errors.full_messages).to include("Phone number can't be blank", "Phone number is invalid")
+        expect(@customer_address.errors.full_messages).to include("Phone number can't be blank", 'Phone number is invalid')
       end
       it 'tokenが空のとき' do
         @customer_address.token = nil
@@ -50,17 +50,17 @@ RSpec.describe CustomerAddress, type: :model do
       it '郵便番号にハイフンが含まれていないとき' do
         @customer_address.postal_code = '1234567'
         @customer_address.valid?
-        expect(@customer_address.errors.full_messages).to include("Postal code Input correctly")
+        expect(@customer_address.errors.full_messages).to include('Postal code Input correctly')
       end
       it '電話番号にハイフンが含まれているとき' do
         @customer_address.phone_number = '123-456-789'
         @customer_address.valid?
-        expect(@customer_address.errors.full_messages).to include("Phone number is invalid")
+        expect(@customer_address.errors.full_messages).to include('Phone number is invalid')
       end
       it '電話番号が12桁以上のとき' do
-        @customer_address.phone_number = "123456789102"
+        @customer_address.phone_number = '123456789102'
         @customer_address.valid?
-        expect(@customer_address.errors.full_messages).to include("Phone number is invalid")
+        expect(@customer_address.errors.full_messages).to include('Phone number is invalid')
       end
     end
   end
