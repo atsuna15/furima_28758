@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  # before_action :move_to_index
+  before_action :move_to_index
 
 
   def index
@@ -39,16 +39,15 @@ class CustomersController < ApplicationController
     )
   end
 
-  # def move_to_index
-  #   @item = Item.find(params[:id])
-  #   if @item.customer_id.present?
-  #     redirect_to root_path
-  #   end
-  #   if current_user == @item.user
-  #     redirect_to root_path
-  #   end
-  #   unless user_signed_in?
-  #     redirect_to root_path
-  #   end
-  # end
+  def move_to_index
+    @item = Item.find(params[:item_id])
+    if @item.customer
+      redirect_to root_path
+    elsif current_user == @item.user
+      redirect_to root_path
+    end
+    unless user_signed_in?
+      redirect_to  "/users/sign_in" 
+    end
+  end
 end
