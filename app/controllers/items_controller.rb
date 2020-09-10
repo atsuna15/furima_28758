@@ -3,7 +3,6 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.includes(:customer).order('created_at DESC')
-    
   end
 
   def new

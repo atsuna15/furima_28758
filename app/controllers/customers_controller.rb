@@ -1,18 +1,15 @@
 class CustomersController < ApplicationController
+  before_action :set_customer, only: [:index, :create, :pay_item, :move_to_index]
+  before_action :set_customer_address, only: [:index, :new]
   before_action :move_to_index
 
-
   def index
-    @item = Item.find(params[:item_id])
-    @customer_address = CustomerAddress.new
   end
 
   def new
-    @customer_address = CustomerAddress.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @customer_address = CustomerAddress.new(customer_params)
     if @customer_address.valid?
       pay_item
@@ -30,7 +27,6 @@ class CustomersController < ApplicationController
   end
 
   def pay_item
-    @item = Item.find(params[:item_id])
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: @item.price,
@@ -40,7 +36,6 @@ class CustomersController < ApplicationController
   end
 
   def move_to_index
-    @item = Item.find(params[:item_id])
     if @item.customer
       redirect_to root_path
     elsif current_user == @item.user
@@ -49,5 +44,13 @@ class CustomersController < ApplicationController
     unless user_signed_in?
       redirect_to  "/users/sign_in" 
     end
+  end
+
+  def set_customer
+    @item = Item.find(params[:item_id])
+  end
+
+  def set_customer_address
+    @customer_address = CustomerAddress.new
   end
 end
