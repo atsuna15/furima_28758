@@ -31,7 +31,7 @@
     <% elsif current_user %>
     <%= link_to '購入画面に進む', "/items/#{@item.id}/customers" ,class:"item-red-btn"%>
     <% else %>
-    <%= link_to '購入画面に進む', "/users/sign_in" ,class:"item-red-btn"%>
+    <%= link_to '購入画面に進む', new_user_session_path ,class:"item-red-btn"%>
     <% end %>
 
     <div class="item-explain-box">

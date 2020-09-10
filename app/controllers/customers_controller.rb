@@ -36,12 +36,14 @@ class CustomersController < ApplicationController
   end
 
   def move_to_index
-    if @item.customer
-      redirect_to root_path
+    if unless user_signed_in?
+      redirect_to new_user_session_path
+      end
+    elsif @item.customer
+        redirect_to root_path
     elsif current_user == @item.user
-      redirect_to root_path
+        redirect_to root_path
     end
-    redirect_to '/users/sign_in' unless user_signed_in?
   end
 
   def set_customer
